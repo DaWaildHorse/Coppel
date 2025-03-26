@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LineChart from '../../charts/LineChart01';
 import { chartAreaGradient } from '../../charts/ChartjsConfig';
@@ -8,6 +10,17 @@ import EditMenu from '../../components/DropdownEditMenu';
 import { adjustColorOpacity, getCssVariable } from '../../utils/Utils';
 
 function DashboardCard01() {
+
+  const [count, setCount] = useState(0);
+
+  const fetchAPI = async() => {
+    const response = await axios.get("http://localhost:8080/main")
+    console.log(response.data.user)
+  }
+
+  useEffect(() => {
+    fetchAPI()
+  }, [])
 
   const chartData = {
     labels: [

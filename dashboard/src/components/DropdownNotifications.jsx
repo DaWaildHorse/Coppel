@@ -1,45 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Transition from '../utils/Transition';
 
-function DropdownNotifications({
-  align
-}) {
-
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
+function DropdownNotifications({ align }) {
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
-  // close on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!dropdown.current) return;
-      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
-  });
-
-  // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
-      if (!dropdownOpen || keyCode !== 27) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
-  });
-
   return (
     <div className="relative inline-flex">
-      <button
+      <div
         ref={trigger}
-        className={`w-8 h-8 flex items-center justify-center hover:bg-gray-100 lg:hover:bg-gray-200 dark:hover:bg-gray-700/50 dark:lg:hover:bg-gray-800 rounded-full ${dropdownOpen && 'bg-gray-200 dark:bg-gray-800'}`}
+        className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 lg:hover:bg-gray-200 dark:hover:bg-gray-700/50 dark:lg:hover:bg-gray-800 rounded-full"
         aria-haspopup="true"
-        onClick={() => setDropdownOpen(!dropdownOpen)}
-        aria-expanded={dropdownOpen}
+        aria-expanded={false}
       >
         <span className="sr-only">Notifications</span>
         <svg
@@ -53,11 +26,11 @@ function DropdownNotifications({
           <path d="M11 6a5 5 0 0 0 0 10c.807 0 1.567-.194 2.24-.533l1.444.482a1 1 0 0 0 1.265-1.265l-.482-1.444A4.962 4.962 0 0 0 16 11a5 5 0 0 0-5-5Zm-3 5a3 3 0 0 1 6 0c0 .588-.171 1.134-.466 1.6a1 1 0 0 0-.115.82 1 1 0 0 0-.82.114A2.973 2.973 0 0 1 11 14a3 3 0 0 1-3-3Z" />
         </svg>
         <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 border-2 border-gray-100 dark:border-gray-900 rounded-full"></div>
-      </button>
+      </div>
 
       <Transition
         className={`origin-top-right z-10 absolute top-full -mr-48 sm:mr-0 min-w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700/60 py-1.5 rounded-lg shadow-lg overflow-hidden mt-1 ${align === 'right' ? 'right-0' : 'left-0'}`}
-        show={dropdownOpen}
+        show={true} 
         enter="transition ease-out duration-200 transform"
         enterStart="opacity-0 -translate-y-2"
         enterEnd="opacity-100 translate-y-0"
@@ -65,39 +38,23 @@ function DropdownNotifications({
         leaveStart="opacity-100"
         leaveEnd="opacity-0"
       >
-        <div
-          ref={dropdown}
-          onFocus={() => setDropdownOpen(true)}
-          onBlur={() => setDropdownOpen(false)}
-        >
+        <div ref={dropdown}>
           <div className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase pt-1.5 pb-2 px-4">Notifications</div>
           <ul>
             <li className="border-b border-gray-200 dark:border-gray-700/60 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-gray-50 dark:hover:bg-gray-700/20"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
+              <Link className="block py-2 px-4 hover:bg-gray-50 dark:hover:bg-gray-700/20" to="#0">
                 <span className="block text-sm mb-2">📣 <span className="font-medium text-gray-800 dark:text-gray-100">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
                 <span className="block text-xs font-medium text-gray-400 dark:text-gray-500">Feb 12, 2024</span>
               </Link>
             </li>
             <li className="border-b border-gray-200 dark:border-gray-700/60 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-gray-50 dark:hover:bg-gray-700/20"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
+              <Link className="block py-2 px-4 hover:bg-gray-50 dark:hover:bg-gray-700/20" to="#0">
                 <span className="block text-sm mb-2">📣 <span className="font-medium text-gray-800 dark:text-gray-100">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
                 <span className="block text-xs font-medium text-gray-400 dark:text-gray-500">Feb 9, 2024</span>
               </Link>
             </li>
             <li className="border-b border-gray-200 dark:border-gray-700/60 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-gray-50 dark:hover:bg-gray-700/20"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
+              <Link className="block py-2 px-4 hover:bg-gray-50 dark:hover:bg-gray-700/20" to="#0">
                 <span className="block text-sm mb-2">🚀<span className="font-medium text-gray-800 dark:text-gray-100">Say goodbye to paper receipts!</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
                 <span className="block text-xs font-medium text-gray-400 dark:text-gray-500">Jan 24, 2024</span>
               </Link>
@@ -106,7 +63,7 @@ function DropdownNotifications({
         </div>
       </Transition>
     </div>
-  )
+  );
 }
 
 export default DropdownNotifications;
