@@ -11,7 +11,7 @@ function DashboardCard01() {
   useEffect(() => {
     const fetchAPI = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/main");
+        const response = await axios.get("http://localhost:8080/dash1");
         console.log("API Response:", response.data);
         setData(response.data);
 
@@ -26,7 +26,6 @@ function DashboardCard01() {
           labels,
           datasets: [
             {
-              label: "Tiempo de Espera (segundos)",
               data: values,
               backgroundColor: '#6366F1', // Tailwind Violet-500
               borderColor: '#4F46E5',
@@ -46,7 +45,7 @@ function DashboardCard01() {
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800 shadow-md rounded-xl">
       <div className="px-5 pt-5">
         <header className="flex justify-between items-start mb-2">
-          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Tiempo de Espera</h2>
+          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Estados con menor tiempo de Espera</h2>
           <EditMenu align="right" className="relative inline-flex">
             <li><Link className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-200 flex py-1 px-3" to="#0">Option 1</Link></li>
             <li><Link className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-200 flex py-1 px-3" to="#0">Option 2</Link></li>

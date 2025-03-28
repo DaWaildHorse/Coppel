@@ -50,8 +50,11 @@ function Dashboard() {
 
               {/* Line chart (Acme Plus) */}
               <DashboardCard01 />
-
-              
+              <DashboardCard02 />
+              <DashboardCard03 />
+              <DashboardCard06 />
+              <DashboardCard05/>
+              <DashboardCard07/>
             </div>
 
           </div>

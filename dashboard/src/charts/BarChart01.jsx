@@ -49,9 +49,9 @@ function BarChart01({
             },
             ticks: {
               maxTicksLimit: 5,
-              callback: (value) => formatValue(value),
+              callback: (value) => `${value} sec`, // Change from $ to seconds
               color: darkMode ? textColor.dark : textColor.light,
-            },
+            },            
             grid: {
               color: darkMode ? gridColor.dark : gridColor.light,
             },
@@ -76,7 +76,7 @@ function BarChart01({
           tooltip: {
             callbacks: {
               title: () => false, // Disable tooltip title
-              label: (context) => formatValue(context.parsed.y),
+              label: (context) => `${context.parsed.y} sec`, // Change from $ to seconds
             },
             bodyColor: darkMode ? tooltipBodyColor.dark : tooltipBodyColor.light,
             backgroundColor: darkMode ? tooltipBgColor.dark : tooltipBgColor.light,
@@ -126,32 +126,7 @@ function BarChart01({
               box.style.borderWidth = '3px';
               box.style.borderColor = item.fillStyle;
               box.style.pointerEvents = 'none';
-              // Label
-              const labelContainer = document.createElement('span');
-              labelContainer.style.display = 'flex';
-              labelContainer.style.alignItems = 'center';
-              const value = document.createElement('span');
-              value.classList.add('text-gray-800', 'dark:text-gray-100');
-              value.style.fontSize = '30px';
-              value.style.lineHeight = 'calc(2.25 / 1.875)';
-              value.style.fontWeight = '700';
-              value.style.marginRight = '8px';
-              value.style.pointerEvents = 'none';
-              const label = document.createElement('span');
-              label.classList.add('text-gray-500', 'dark:text-gray-400');
-              label.style.fontSize = '14px';
-              label.style.lineHeight = 'calc(1.25 / 0.875)';
-              const theValue = c.data.datasets[item.datasetIndex].data.reduce((a, b) => a + b, 0);
-              const valueText = document.createTextNode(formatValue(theValue));
-              const labelText = document.createTextNode(item.text);
-              value.appendChild(valueText);
-              label.appendChild(labelText);
-              li.appendChild(button);
-              button.appendChild(box);
-              button.appendChild(labelContainer);
-              labelContainer.appendChild(value);
-              labelContainer.appendChild(label);
-              ul.appendChild(li);
+              
             });
           },
         },
